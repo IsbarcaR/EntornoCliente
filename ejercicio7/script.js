@@ -14,7 +14,7 @@ console.log ("Apartado 3: expresión que involucre un string y un número y devu
 console.log(frase1==num);
 
 console.log ("Apartado 4: expresión que involucre un string y un número y devuelva True");
-console.log(!(frase1==num));
+console.log(!(frase1==num)) ;
 
 
 
