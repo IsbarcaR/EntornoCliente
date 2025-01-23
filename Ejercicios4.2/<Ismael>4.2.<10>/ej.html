@@ -1,0 +1,77 @@
+<!-- Ejercicio 10: Filtrado -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio 10 - Filtrado</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .product { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 10: Filtrado de Productos</h2>
+    <p>Implementa un sistema de filtrado que:</p>
+    <ul>
+        <li>Filtre por nombre mientras el usuario escribe</li>
+        <li>Filtre por categoría</li>
+        <li>Combine ambos filtros</li>
+        <li>Añada animaciones al filtrar</li>
+    </ul>
+
+    <input type="text" id="searchInput" placeholder="Buscar productos...">
+    <select id="categoryFilter">
+        <option value="">Todas las categorías</option>
+        <option value="electronics">Electrónica</option>
+        <option value="clothing">Ropa</option>
+        <option value="books">Libros</option>
+    </select>
+
+    <div id="productList">
+        <div class="product" data-category="electronics">
+            <h3>iPhone 13</h3>
+            <p>Categoría: Electrónica</p>
+        </div>
+        <div class="product" data-category="electronics">
+            <h3>Samsung TV</h3>
+            <p>Categoría: Electrónica</p>
+        </div>
+        <div class="product" data-category="clothing">
+            <h3>Camisa Azul</h3>
+            <p>Categoría: Ropa</p>
+        </div>
+        <div class="product" data-category="electronics">
+            <h3>MacBook Pro</h3>
+            <p>Categoría: Electrónica</p>
+        </div>
+        <div class="product" data-category="clothing">
+            <h3>Pantalón Negro</h3>
+            <p>Categoría: Ropa</p>
+        </div>
+        <div class="product" data-category="books">
+            <h3>El Señor de los Anillos</h3>
+            <p>Categoría: Libros</p>
+        </div>
+        <div class="product" data-category="books">
+            <h3>Cien Años de Soledad</h3>
+            <p>Categoría: Libros</p>
+        </div>
+        <div class="product" data-category="electronics">
+            <h3>AirPods Pro</h3>
+            <p>Categoría: Electrónica</p>
+        </div>
+        <div class="product" data-category="clothing">
+            <h3>Zapatillas Deportivas</h3>
+            <p>Categoría: Ropa</p>
+        </div>
+        <div class="product" data-category="books">
+            <h3>Don Quijote</h3>
+            <p>Categoría: Libros</p>
+        </div>
+        <!-- Añade más productos aquí -->
+    </div>
+
+    <script src="ej.js">
+        // Escribe tu código aquí
+    </script>
+</body>
+</html>

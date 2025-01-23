@@ -1,0 +1,41 @@
+<!-- Ejercicio 7: Formulario y validación -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejercicio 7 - Formulario</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <style>
+        .error { color: red;  }
+        form { margin: 20px; }
+        input { display: block; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 7: Validación de Formulario</h2>
+    <p>Implementa la validación del siguiente formulario:</p>
+    <ul>
+        <li>El nombre no puede estar vacío</li>
+        <li>El email debe tener un formato válido</li>
+        <li>La contraseña debe tener al menos 6 caracteres</li>
+    </ul>
+
+    <form id="registroForm">
+        <input type="text" id="nombre" placeholder="Nombre" name="nombre" >
+        
+        
+        <input type="email" id="email" placeholder="Email" name="email">
+       
+        
+        <input type="password" id="password" placeholder="Contraseña" name="pass">
+        <br>
+        
+        <button type="submit">Registrar</button>
+    </form>
+
+    <script src="ej.js">
+        // Escribe tu código aquí
+    </script>
+</body>
+</html>
