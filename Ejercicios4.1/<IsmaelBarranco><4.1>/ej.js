@@ -15,7 +15,8 @@ function loadUsersFetch() {
                     </td>
                 </tr>
             `).join("");
-        });
+        })
+        .catch(error => console.error('Error cargando usuarios con Fetch:', error));
 }
 
 function loadUsersAxios() {
@@ -32,7 +33,8 @@ function loadUsersAxios() {
                     </td>
                 </tr>
             `).join("");
-        });
+        })
+        .catch(error => console.error('Error cargando usuarios con Axios:', error));
 }
 
 document.getElementById("userForm").addEventListener("submit", function (e) {
@@ -42,25 +44,50 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
 
     const newUser = { name, email };
 
-    fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser),
-    })
-        .then(() => {
-            loadUsersFetch();
-            loadUsersAxios();
-        });
+    // Simular la adición de un nuevo usuario en el frontend
+    addUserToTable(newUser);
 
     document.getElementById("userForm").reset();
 });
+
+function addUserToTable(user) {
+    const newId = Date.now(); // Simular un ID único
+    const newUser = { id: newId, ...user };
+
+    // Añadir a la tabla Fetch
+    const tbodyFetch = document.querySelector("#userTableFetch tbody");
+    tbodyFetch.innerHTML += `
+        <tr>
+            <td>${newUser.id}</td>
+            <td>${newUser.name}</td>
+            <td>${newUser.email}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteUserFetch(${newUser.id}, this)">Eliminar</button>
+            </td>
+        </tr>
+    `;
+
+    // Añadir a la tabla Axios
+    const tbodyAxios = document.querySelector("#userTableAxios tbody");
+    tbodyAxios.innerHTML += `
+        <tr>
+            <td>${newUser.id}</td>
+            <td>${newUser.name}</td>
+            <td>${newUser.email}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteUserAxios(${newUser.id}, this)">Eliminar</button>
+            </td>
+        </tr>
+    `;
+}
 
 function deleteUserFetch(id, button) {
     fetch(`${API_URL}/${id}`, { method: "DELETE" })
         .then(() => {
             const row = button.closest("tr");
             row.remove();
-        });
+        })
+        .catch(error => console.error('Error eliminando usuario con Fetch:', error));
 }
 
 function deleteUserAxios(id, button) {
@@ -68,9 +95,9 @@ function deleteUserAxios(id, button) {
         .then(() => {
             const row = button.closest("tr");
             row.remove();
-        });
+        })
+        .catch(error => console.error('Error eliminando usuario con Axios:', error));
 }
-
 
 loadUsersFetch();
 loadUsersAxios();

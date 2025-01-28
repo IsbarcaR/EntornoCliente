@@ -1,4 +1,3 @@
-
 function savePreferences() {
     const theme = document.getElementById("themeSelector").value;
     const fontSize = document.getElementById("fontSizeSelector").value;
@@ -10,10 +9,13 @@ function savePreferences() {
 }
 
 function resetPreferences() {
+    const defaultPreferences = { theme: "light", fontSize: "medium", language: "es" };
     localStorage.removeItem("preferences");
-    applyPreferences({ theme: "light", fontSize: "medium", language: "es" });
+    document.getElementById("themeSelector").value = defaultPreferences.theme;
+    document.getElementById("fontSizeSelector").value = defaultPreferences.fontSize;
+    document.getElementById("languageSelector").value = defaultPreferences.language;
+    applyPreferences(defaultPreferences);
 }
-
 
 function applyPreferences(preferences) {
     document.body.className = `${preferences.theme}-theme`;
@@ -47,5 +49,7 @@ function loadProfile() {
 }
 
 
-loadPreferences();
-loadProfile();
+window.onload = function() {
+    loadPreferences();
+    loadProfile();
+};

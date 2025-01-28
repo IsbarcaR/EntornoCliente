@@ -53,7 +53,6 @@ function saveLocation(city) {
     }
 }
 
-// Eliminar ubicación
 function deleteLocation(index) {
     const locations = loadSavedLocations();
     locations.splice(index, 1);
@@ -61,5 +60,5 @@ function deleteLocation(index) {
     displaySavedLocations();
 }
 
-// Inicializar
+
 displaySavedLocations();
