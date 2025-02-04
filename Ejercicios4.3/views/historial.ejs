@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Productos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>/* Estilos generales */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    /* Título principal */
+    h1 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+    
+    /* Contenedor de productos */
+    #saved-products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    /* Tarjeta de producto */
+    #saved-products div {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        text-align: center;
+    }
+    
+    /* Imágenes de productos */
+    #saved-products img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    
+    /* Textos dentro de las tarjetas */
+    #saved-products p {
+        font-size: 14px;
+        color: #333;
+        margin: 5px 0;
+    }
+    </style>
+</head>
+
+<body>
+    <h1>Productos Guardados</h1>
+
+    <div id="saved-products"></div>
+
+    <script>
+        //cargar productos del localStorage
+
+        $(document).ready(function () {
+            let savedProducts = JSON.parse(localStorage.getItem('products')) || [];
+
+            if (savedProducts.length > 0) {
+                savedProducts.forEach(function (product) {
+                    let productDiv = $('<div></div>').html(`
+                        <h2>${product.title}</h2>
+                        <img src="${product.image}" alt="${product.title}">
+                        <p>Precio: ${product.price}</p>
+                        <p>Descripción: ${product.descripcion}</p>
+                        <p>Stock: ${product.stock}</p>
+                    `);
+                    $('#saved-products').append(productDiv);
+                });
+            } else {
+                $('#saved-products').html("<p>No hay productos guardados.</p>");
+            }
+        });
+    </script>
+</body>
+
+</html>

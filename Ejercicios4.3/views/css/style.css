@@ -1,0 +1,143 @@
+/* --------------------------- */
+/*        Estilos Globales     */
+/* --------------------------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* --------------------------- */
+/*          Header/Nav         */
+/* --------------------------- */
+header {
+    background: #007bff;
+    padding: 15px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* --------------------------- */
+/*       Formulario (form.ejs) */
+/* --------------------------- */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 20px auto;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Mensaje de carga */
+#loadingMessage {
+    font-size: 16px;
+    color: #555;
+    margin-top: 15px;
+}
+
+/* --------------------------- */
+/*  Estilos para index.ejs    */
+/* --------------------------- */
+h1 {
+    color: #007bff;
+}
+
+#product-details {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    margin: 20px auto;
+    text-align: left;
+}
+
+#product-details img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Mensajes de error y carga */
+.loading {
+    display: none;
+    font-size: 16px;
+    color: #ff9800;
+}
+
+.error-message {
+    color: red;
+    margin: 10px 0;
+}
+
+/* --------------------------- */
+/*  Estilos para historial.ejs */
+/* --------------------------- */
+#saved-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#saved-products div {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+#saved-products img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#saved-products p {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}

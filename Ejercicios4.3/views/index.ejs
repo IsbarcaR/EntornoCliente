@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Precios</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>/* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Contenedor principal */
+        #product-details {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        /* Título */
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        
+        /* Imagen del producto */
+        #product-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        /* Precio y descripción */
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        
+        /* Botones */
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        /* Mensaje de carga */
+        .loading {
+            display: none;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+        
+        /* Mensaje de error */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* Resultados de comparación */
+        #comparison-result {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        #comparison-result ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        #comparison-result li {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        #comparison-result img {
+            max-width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+        </style>
+
+</head>
+
+<body>
+    <h1>Producto Encontrado</h1>
+
+    <div id="product-details">
+        <h2 id="title">
+            <%= product.title %>
+        </h2>
+        <img id="image" src="<%= product.image %>" alt="<%= product.title %>">
+        <p id="price">Precio en Amazon: <%= product.price %>
+        </p>
+        <p id="descripcion">Descripción: <%= product.descripcion %>
+        </p>
+        <p id="stock">Stock: <%= product.stock %>
+        </p>
+    </div>
+
+    <button id="save-product">Guardar Producto</button>
+    <button id="compare-prices">Comparar con AliExpress</button>
+
+    <div class="loading">Buscando en AliExpress...</div>
+    <div class="error-message"></div>
+
+    <div id="comparison-result"></div>
+
+    <script>
+        //guardar productos en el local storage
+        $('#save-product').click(function () {
+            const product = {
+                title: $('#title').text(),
+                image: $('#image').attr('src'),
+                price: $('#price').text().replace('Precio en Amazon: ', ''),
+                descripcion: $('#descripcion').text().replace('Descripción: ', ''),
+                stock: $('#stock').text().replace('Stock: ', '')
+            };
+
+            let savedProducts = JSON.parse(localStorage.getItem('products')) || [];
+            savedProducts.push(product);
+            localStorage.setItem('products', JSON.stringify(savedProducts));
+            alert('Producto guardado correctamente.');
+        });
+
+        //para la busqueda de aliexpress, el titulo de amazon es gigantesco
+        function acortarTitulo(titulo) {
+            return titulo.split(" ").slice(0, 4).join("-"); 
+        }
+
+        $('#compare-prices').click(function () {
+            let tituloCompleto = $('#title').text().trim();
+            if (!tituloCompleto) {
+                $('.error-message').text("No se encontró el título del producto.");
+                return;
+            }
+
+            let tituloCorto = acortarTitulo(tituloCompleto); 
+            console.log("Buscando en AliExpress con:", tituloCorto);//para ver la url que busca en la consola
+
+            $('.loading').show();
+            $('.error-message').text('');
+            $('#comparison-result').html('');
+
+            //hacer peticion al server.js y pintar 
+            $.ajax({
+                url: '/buscar-aliexpress',
+                method: 'GET',
+                data: { titulo: tituloCorto },
+                success: function (response) {
+                    $('.loading').hide();
+                    if (response.length === 0) {
+                        $('#comparison-result').html("<p>No se encontraron productos en AliExpress.</p>");
+                    } else {
+                        let html = "<h2>Resultados en AliExpress:</h2><ul>";
+                        response.forEach(product => {
+                            html += `
+                            <li>
+                                <img src="${product.image}" alt="${product.title}" width="100">
+                                <p><strong>${product.title}</strong></p>
+                                <p>Precio: ${product.price}</p>
+                            </li>
+                        `;
+                        });
+                        html += "</ul>";
+                        $('#comparison-result').html(html);
+                    }
+                },
+                error: function () {
+                    $('.loading').hide();
+                    $('.error-message').text("Hubo un error al buscar en AliExpress.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
